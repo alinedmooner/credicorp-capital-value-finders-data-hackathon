@@ -1,0 +1,107 @@
+==============================================================================
+CL_01 — Crecimiento Global
+==============================================================================
+Profile: base=USD | horizon=18m | risk=Alta | maxDD tol=22% | liquidity=Baja
+Priority: Crecimiento de capital | Constraint: Máx. 45% en un solo sector
+
+HOLDINGS & EXPOSURE:
+  VF_A06 Norte Industrials      20%  Industrials        Mexico         asset vol=33%
+  VF_A04 Lima Financial         20%  Financials         Peru           asset vol=28%
+  VF_A05 Aurora Health          20%  Health Care        United States  asset vol=24%
+  VF_A02 Pacifica Digital       20%  Technology         Peru           asset vol=45%
+  VF_A01 Andes Consumer         20%  Consumer Staples   Colombia       asset vol=20%
+
+RISK CONTRIBUTION (% of portfolio volatility):
+  VF_A06: weight=20% -> risk share=23%
+  VF_A04: weight=20% -> risk share=18%
+  VF_A05: weight=20% -> risk share=13%
+  VF_A02: weight=20% -> risk share=36%
+  VF_A01: weight=20% -> risk share=10%
+
+Sector exposure: {'Consumer Staples': np.float64(20.0), 'Financials': np.float64(20.0), 'Health Care': np.float64(20.0), 'Industrials': np.float64(20.0), 'Technology': np.float64(20.0)}
+Country exposure: {'Colombia': np.float64(20.0), 'Mexico': np.float64(20.0), 'Peru': np.float64(40.0), 'United States': np.float64(20.0)}
+
+PERFORMANCE (2025-08 → 2026-08, USD):
+  total=+2.6%  ann=+4.1%  vol=18.3%  maxDD=-19.1%  Sharpe=0.22
+  drawdown budget used: 87% of 22% tolerance (OK)
+  Feb-2026 stress replay: -9.3%
+
+TWIST EXPOSURE:
+  TW_01 (rates): VF_A06 (20%) is the most leveraged name -> watch;
+                 VF_A02 (20%) is long-duration growth, highest vol.
+  TW_02: not applicable.  TW_03: USD base -> no FX translation risk.
+
+Figure: 18_client_CL_01.png
+
+==============================================================================
+CL_02 — Patrimonio Estable
+==============================================================================
+Profile: base=COP | horizon=36m | risk=Media-Baja | maxDD tol=10% | liquidity=Media
+Priority: Preservación + crecimiento moderado | Constraint: Máx. 25% en activos de alta volatilidad
+
+HOLDINGS & EXPOSURE:
+  VF_A08 Atlas Utilities        25%  Utilities          United States  asset vol=15%
+  VF_A01 Andes Consumer         25%  Consumer Staples   Colombia       asset vol=20%
+  VF_A05 Aurora Health          25%  Health Care        United States  asset vol=24%
+  VF_A04 Lima Financial         25%  Financials         Peru           asset vol=28%
+
+RISK CONTRIBUTION (% of portfolio volatility):
+  VF_A08: weight=25% -> risk share=12%
+  VF_A01: weight=25% -> risk share=21%
+  VF_A05: weight=25% -> risk share=29%
+  VF_A04: weight=25% -> risk share=39%
+
+Sector exposure: {'Consumer Staples': np.float64(25.0), 'Financials': np.float64(25.0), 'Health Care': np.float64(25.0), 'Utilities': np.float64(25.0)}
+Country exposure: {'Colombia': np.float64(25.0), 'Peru': np.float64(25.0), 'United States': np.float64(50.0)}
+
+PERFORMANCE (2025-08 → 2026-08, USD):
+  total=+7.1%  ann=+7.3%  vol=13.5%  maxDD=-9.3%  Sharpe=0.54
+  drawdown budget used: 93% of 10% tolerance (OK)
+  Feb-2026 stress replay: -3.8%
+
+IN COP TERMS: total=+9.8%  ann=+9.8%  maxDD=-10.6%
+
+TWIST EXPOSURE:
+  TW_02 (THEIR twist): 30% needed in 6m -> liquidation <1 day;
+    recommended 70/30 cash sleeve: ann=+5.1% vol=9.5% maxDD=-6.6%
+  TW_03 (THEIR currency): +8% COP fall = +8% translation gain;
+    stress replay in COP with shock: -3.8% -> +3.9% (low-vol), -2.7% -> +5.1% (70/30).
+
+Figure: 18_client_CL_02.png
+
+==============================================================================
+CL_03 — Diversificación Regional
+==============================================================================
+Profile: base=PEN | horizon=24m | risk=Media | maxDD tol=15% | liquidity=Media
+Priority: Diversificación geográfica | Constraint: Al menos 3 países y 3 sectores
+
+HOLDINGS & EXPOSURE:
+  VF_A01 Andes Consumer         20%  Consumer Staples   Colombia       asset vol=20%
+  VF_A04 Lima Financial         20%  Financials         Peru           asset vol=28%
+  VF_A06 Norte Industrials      20%  Industrials        Mexico         asset vol=33%
+  VF_A07 Sierra Materials       20%  Materials          Chile          asset vol=38%
+  VF_A08 Atlas Utilities        20%  Utilities          United States  asset vol=15%
+
+RISK CONTRIBUTION (% of portfolio volatility):
+  VF_A01: weight=20% -> risk share=10%
+  VF_A04: weight=20% -> risk share=22%
+  VF_A06: weight=20% -> risk share=28%
+  VF_A07: weight=20% -> risk share=32%
+  VF_A08: weight=20% -> risk share=7%
+
+Sector exposure: {'Consumer Staples': np.float64(20.0), 'Financials': np.float64(20.0), 'Industrials': np.float64(20.0), 'Materials': np.float64(20.0), 'Utilities': np.float64(20.0)}
+Country exposure: {'Chile': np.float64(20.0), 'Colombia': np.float64(20.0), 'Mexico': np.float64(20.0), 'Peru': np.float64(20.0), 'United States': np.float64(20.0)}
+
+PERFORMANCE (2025-08 → 2026-08, USD):
+  total=-9.3%  ann=-7.9%  vol=15.9%  maxDD=-14.1%  Sharpe=-0.50
+  drawdown budget used: 94% of 15% tolerance (OK)
+  Feb-2026 stress replay: -6.4%
+
+IN PEN TERMS: total=-10.4%  ann=-8.9%  maxDD=-17.2%
+
+TWIST EXPOSURE:
+  TW_01 (rates): VF_A06 (20%) leverage watch; VF_A07 (20%) commodity-beta.
+  TW_03: PEN base; USD/PEN -1.2% over window -> mild FX drag (~-1.2%).
+  Diversification rule: 5 countries, 5 sectors -> PASS.
+
+Figure: 18_client_CL_03.png
