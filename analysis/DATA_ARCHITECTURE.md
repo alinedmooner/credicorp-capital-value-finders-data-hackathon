@@ -115,3 +115,25 @@ flowchart LR
 | Missing-value / bad-tick repair | Price-derived returns | Prevents artificial price moves and unusable bars |
 | Daily–intraday separation | All price analysis | Avoids invalidly combining inconsistent sources |
 | Client base-currency checks | Final recommendations | Tests drawdown tolerance in the client’s actual currency |
+
+## Monetary-data lineage
+
+The pipeline carries two distinct types of money-related data:
+
+```mermaid
+flowchart LR
+    P[USD price per share] --> TV[Price × volume]
+    V[Trading volume in shares] --> TV
+    TV --> L[Average daily traded value<br/>liquidity analysis]
+
+    R[Revenue, EBITDA, net income<br/>debt and cash — USD m] --> F[Fundamental scorecard]
+    F --> S[Value and leverage synthesis]
+
+    L --> C[Client suitability / liquidity checks]
+    S --> C
+
+    N[No client AUM, positions,<br/>shares outstanding or market cap] -. limitation .-> C
+```
+
+See [`MONEY_AND_LIQUIDITY.md`](MONEY_AND_LIQUIDITY.md) for the field-level
+definitions, issuer amounts and limitations.
