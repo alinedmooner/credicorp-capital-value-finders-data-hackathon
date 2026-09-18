@@ -1,0 +1,9 @@
+,rate_beta,R2,est_impact_%,name,sector
+VF_A06,-0.15,0.002,-9.5,Norte Industrials,Industrials
+VF_A04,0.09,0.001,5.9,Lima Financial,Financials
+VF_A02,0.12,0.001,7.5,Pacifica Digital,Technology
+VF_A01,0.18,0.006,11.4,Andes Consumer,Consumer Staples
+VF_A08,0.18,0.012,11.8,Atlas Utilities,Utilities
+VF_A07,0.28,0.004,18.1,Sierra Materials,Materials
+VF_A05,0.3,0.013,19.2,Aurora Health,Health Care
+VF_A03,0.31,0.007,20.3,Cordillera Energy,Energy

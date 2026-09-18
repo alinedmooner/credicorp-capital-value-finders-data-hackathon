@@ -144,3 +144,5 @@ Figure: `figures/08_client_portfolios.png`.
 2. **Daily vs intraday files are mutually inconsistent** (§2) — pick one source per analysis.
 3. Fundamentals are short (8 quarters) and one issuer has a missing quarter; growth rates use matched-quarter sums.
 4. Next steps: survivorship-free backtest of the event-drift signal (§7); Markowitz/risk-parity optimization per client using the correlation matrix; FX-hedged variants for CL_02 (COP) and CL_03 (PEN); scenario replay of the Feb-2026 stress for drawdown budgeting.
+
+> **Update:** see `TWIST_REPORT.md` for the scenario analysis of `dataset_twist.csv` (rate shock +65bp, CL_02 liquidity call, COP −8%) — conclusions above hold; CL_02 gains a 30% cash-sleeve refinement.
