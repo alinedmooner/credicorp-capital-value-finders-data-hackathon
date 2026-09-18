@@ -1,0 +1,70 @@
+04_asset_reference.csv
+----------------------
+Filas origen: 8
+IDs inválidos eliminados (asset/issuer): 0
+Normalización aplicada: asset_id (VF-A1 -> VF_A01), issuer_id (ISS04 -> ISS_04), trim texto y currency en mayúsculas.
+Filas salida: 8
+
+01_market_prices_raw.csv
+------------------------
+Filas origen: 2175
+Normalización asset_id (VF-A1 -> VF_A01).
+Filas con asset_id inválido: 0
+Filas con fecha inválida: 4
+Filas con asset_id fuera de referencia: 0
+Filas anómalas por spike/reversión eliminadas: 1
+Valores OHLC faltantes antes de imputar: 0
+Valores volume faltantes antes de imputar: 3
+Duplicados date+asset_id eliminados: 7
+Filas salida: 2163
+
+01_market_prices_raw_expanded.csv
+---------------------------------
+Filas origen: 538836
+Normalización asset_id (VF-A6/VF-A4 -> VF_A06/VF_A04).
+Filas con asset_id inválido: 0
+Filas con fecha inválida: 38
+Filas con asset_id fuera de referencia: 0
+Valores OHLC faltantes antes de imputar: 24
+Valores volume faltantes/no numéricos antes de imputar: 30
+Duplicados timestamp+asset_id eliminados: 12
+Filas salida: 538786
+
+02_macro_raw.csv
+----------------
+Filas origen: 271
+Filas con fecha inválida eliminadas: 0
+us_inflation_yoy faltantes antes de imputar (ffill/bfill): 258
+risk_regime inválido recodificado a Normal: 0
+Duplicados por fecha eliminados: 0
+Filas salida: 271
+
+03_fundamentals_raw.csv
+-----------------------
+Filas origen: 65
+Normalización issuer_id (ISS04 -> ISS_04) y period_end trimestral (Q4-2024 -> 2024-12-31).
+Filas con issuer_id inválido eliminadas: 0
+Filas con period_end inválido eliminadas: 0
+Filas con issuer_id fuera de referencia eliminadas: 0
+cash_usd_m faltantes imputados por mediana de issuer: 1
+Duplicados completos detectados: 1
+Duplicados por llave issuer_id+period_end eliminados: 2
+Filas salida: 63
+
+05_client_profiles.csv
+----------------------
+Filas origen: 3
+Estandarización de espacios y base_currency en mayúsculas.
+horizon_months inválido (NaN): 0
+max_drawdown_tolerance_pct inválido (NaN): 0
+Duplicados por client_id eliminados: 0
+Filas salida: 3
+
+06_events.csv
+-------------
+Filas origen: 5
+Filas con fecha inválida eliminadas: 0
+Normalización de scope para activos (VF_Axx), event_type y severity (Title Case).
+severity inválida recodificada a Medium: 0
+Duplicados de evento eliminados: 0
+Filas salida: 5
