@@ -1,0 +1,165 @@
+==============================================================================
+FILE: 01_market_prices_raw.csv  (key: prices_daily)
+  shape: 2,175 rows x 9 cols
+  columns: ['date', 'asset_id', 'market', 'currency', 'open', 'high', 'low', 'close', 'volume']
+  dtypes:
+    - date: str
+    - asset_id: str
+    - market: str
+    - currency: str
+    - open: float64
+    - high: float64
+    - low: float64
+    - close: float64
+    - volume: str
+  MISSING VALUES:
+    - currency: 4 (0.2%)
+    - volume: 3 (0.1%)
+  full-row duplicates: 7
+  date col 'date': min=2025-08-01 00:00:00, max=2026-08-14 00:00:00, unparseable=4
+  unique asset_id: 11 -> ['VF-A1', 'VFA03', 'VF_A01', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A05', 'VF_A06', 'VF_A07', 'VF_A08', 'VF_A6']
+  unique market: 3 -> ['NASDAQ', 'NYSE', 'NYSE ADR']
+  unique currency: 1 -> ['USD']
+
+==============================================================================
+FILE: 01_market_prices_raw_expanded.csv  (key: prices_intraday)
+  shape: 538,836 rows x 9 cols
+  columns: ['date', 'asset_id', 'market', 'currency', 'open', 'high', 'low', 'close', 'volume']
+  dtypes:
+    - date: str
+    - asset_id: str
+    - market: str
+    - currency: str
+    - open: float64
+    - high: float64
+    - low: float64
+    - close: float64
+    - volume: str
+  MISSING VALUES:
+    - currency: 35 (0.0%)
+    - close: 24 (0.0%)
+    - volume: 30 (0.0%)
+  full-row duplicates: 12
+  date col 'date': min=2020-01-02 09:30:00, max=2026-08-14 15:50:00, unparseable=38
+  unique asset_id: 11 -> ['VF-A1', 'VF-A4', 'VF-A6', 'VF_A01', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A05', 'VF_A06', 'VF_A07', 'VF_A08']
+  unique market: 3 -> ['NASDAQ', 'NYSE', 'NYSE ADR']
+  unique currency: 1 -> ['USD']
+
+==============================================================================
+FILE: 02_macro_raw.csv  (key: macro)
+  shape: 271 rows x 9 cols
+  columns: ['date', 'us_10y_yield', 'us_inflation_yoy', 'usd_cop', 'usd_pen', 'usd_mxn', 'usd_clp', 'market_factor', 'risk_regime']
+  dtypes:
+    - date: str
+    - us_10y_yield: float64
+    - us_inflation_yoy: float64
+    - usd_cop: float64
+    - usd_pen: float64
+    - usd_mxn: float64
+    - usd_clp: float64
+    - market_factor: float64
+    - risk_regime: str
+  MISSING VALUES:
+    - us_inflation_yoy: 258 (95.2%)
+  full-row duplicates: 0
+  date col 'date': min=2025-08-01 00:00:00, max=2026-08-14 00:00:00, unparseable=0
+  unique risk_regime: 3 -> ['Normal', 'Recovery', 'Stress']
+
+==============================================================================
+FILE: 03_fundamentals_raw.csv  (key: fundamentals)
+  shape: 65 rows x 7 cols
+  columns: ['issuer_id', 'period_end', 'revenue_usd_m', 'ebitda_usd_m', 'net_income_usd_m', 'debt_usd_m', 'cash_usd_m']
+  dtypes:
+    - issuer_id: str
+    - period_end: str
+    - revenue_usd_m: str
+    - ebitda_usd_m: float64
+    - net_income_usd_m: float64
+    - debt_usd_m: float64
+    - cash_usd_m: float64
+  MISSING VALUES:
+    - cash_usd_m: 1 (1.5%)
+  full-row duplicates: 1
+  date col 'period_end': min=2024-09-30 00:00:00, max=2026-06-30 00:00:00, unparseable=1
+  unique issuer_id: 9 -> ['ISS04', 'ISS_01', 'ISS_02', 'ISS_03', 'ISS_04', 'ISS_05', 'ISS_06', 'ISS_07', 'ISS_08']
+
+==============================================================================
+FILE: 04_asset_reference.csv  (key: assets)
+  shape: 8 rows x 7 cols
+  columns: ['asset_id', 'issuer_id', 'name', 'sector', 'country', 'market', 'currency']
+  dtypes:
+    - asset_id: str
+    - issuer_id: str
+    - name: str
+    - sector: str
+    - country: str
+    - market: str
+    - currency: str
+  missing values: none
+  full-row duplicates: 0
+  unique asset_id: 8 -> ['VF_A01', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A05', 'VF_A06', 'VF_A07', 'VF_A08']
+  unique issuer_id: 8 -> ['ISS_01', 'ISS_02', 'ISS_03', 'ISS_04', 'ISS_05', 'ISS_06', 'ISS_07', 'ISS_08']
+  unique market: 3 -> ['NASDAQ', 'NYSE', 'NYSE ADR']
+  unique sector: 8 -> ['Consumer Staples', 'Energy', 'Financials', 'Health Care', 'Industrials', 'Materials', 'Technology', 'Utilities']
+  unique country: 5 -> ['Chile', 'Colombia', 'Mexico', 'Peru', 'United States']
+  unique currency: 1 -> ['USD']
+
+==============================================================================
+FILE: 05_client_profiles.csv  (key: clients)
+  shape: 3 rows x 9 cols
+  columns: ['client_id', 'profile_name', 'base_currency', 'horizon_months', 'risk_tolerance', 'max_drawdown_tolerance_pct', 'liquidity_need', 'priority', 'constraint']
+  dtypes:
+    - client_id: str
+    - profile_name: str
+    - base_currency: str
+    - horizon_months: int64
+    - risk_tolerance: str
+    - max_drawdown_tolerance_pct: int64
+    - liquidity_need: str
+    - priority: str
+    - constraint: str
+  missing values: none
+  full-row duplicates: 0
+  unique client_id: 3 -> ['CL_01', 'CL_02', 'CL_03']
+
+==============================================================================
+FILE: 06_events.csv  (key: events)
+  shape: 5 rows x 5 cols
+  columns: ['event_date', 'scope', 'event_type', 'headline', 'severity']
+  dtypes:
+    - event_date: str
+    - scope: str
+    - event_type: str
+    - headline: str
+    - severity: str
+  missing values: none
+  full-row duplicates: 0
+  date col 'event_date': min=2026-02-10 00:00:00, max=2026-07-21 00:00:00, unparseable=0
+  unique event_type: 5 -> ['Commodity', 'Demand', 'Earnings', 'Operational', 'Sector']
+  unique severity: 2 -> ['High', 'Medium']
+  unique scope: 5 -> ['Technology', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A07']
+
+==============================================================================
+REFERENTIAL INTEGRITY
+asset_ids in reference: ['VF_A01', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A05', 'VF_A06', 'VF_A07', 'VF_A08']
+asset_ids in daily prices not in reference: ['VF-A1', 'VFA03', 'VF_A6']
+asset_ids in intraday prices not in reference: ['VF-A1', 'VF-A4', 'VF-A6']
+issuer_ids in reference: ['ISS_01', 'ISS_02', 'ISS_03', 'ISS_04', 'ISS_05', 'ISS_06', 'ISS_07', 'ISS_08']
+issuer_ids in fundamentals not in reference: ['ISS04']
+issuers in reference without fundamentals: []
+event scopes: ['Technology', 'VF_A02', 'VF_A03', 'VF_A04', 'VF_A07']; scopes not matching asset_ids: ['Technology']
+
+DAILY PRICE COVERAGE PER ASSET:
+            n       first        last
+asset_id                             
+VF-A1       1  2025-08-12  2025-08-12
+VFA03       1  2026-04-13  2026-04-13
+VF_A01    272  2025-08-01  2026-08-14
+VF_A02    272  09/05/2025  2026-08-14
+VF_A03    271  02/27/2026  2026-08-14
+VF_A04    271  09/05/2025  2026-08-14
+VF_A05    272  2025-08-01  2026-08-14
+VF_A06    271  2025-08-01  2026-08-14
+VF_A07    271  2025-08-01  2026-08-14
+VF_A08    272  2025-08-01  2026-08-14
+VF_A6       1  2026-01-06  2026-01-06

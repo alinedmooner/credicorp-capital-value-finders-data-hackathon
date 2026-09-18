@@ -1,0 +1,9 @@
+asset_id,name,sector,country,total_ret_%,ann_vol_%,max_dd_%,avg_daily_val_USDm,rev_growth_yoy_%,ebitda_margin_ltm,net_margin_ltm,nd_ebitda,score_growth,score_margin,score_leverage,score_price,composite
+VF_A01,Andes Consumer,Consumer Staples,Colombia,-10.0,20.1,-27.4,101.1,8.992,0.323,0.192,0.275,0.066,1.181,-0.245,0.107,0.277
+VF_A08,Atlas Utilities,Utilities,United States,-14.2,15.4,-22.2,74.5,6.892,0.13,0.079,-0.239,-0.45,-1.126,1.703,0.298,0.106
+VF_A03,Cordillera Energy,Energy,Colombia,-26.5,34.9,-42.5,59.4,9.071,0.116,0.059,0.012,0.085,-1.289,0.751,0.858,0.101
+VF_A02,Pacifica Digital,Technology,Peru,-13.8,45.2,-55.4,175.0,6.739,0.281,0.153,0.232,-0.487,0.681,-0.082,0.28,0.098
+VF_A06,Norte Industrials,Industrials,Mexico,-22.4,33.4,-37.1,65.6,17.919,0.153,0.08,0.677,2.259,-0.849,-1.768,0.671,0.078
+VF_A07,Sierra Materials,Materials,Chile,-26.7,38.3,-36.2,52.0,3.924,0.206,0.125,0.124,-1.179,-0.217,0.328,0.867,-0.05
+VF_A04,Lima Financial,Financials,Peru,20.5,28.2,-17.4,124.0,7.772,0.313,0.175,0.295,-0.234,1.069,-0.32,-1.281,-0.191
+VF_A05,Aurora Health,Health Care,United States,31.9,24.0,-13.5,160.5,8.475,0.27,0.155,0.307,-0.061,0.55,-0.368,-1.8,-0.42

@@ -1,0 +1,9 @@
+issuer_id,asset_id,name,sector,rev_ltm,ebitda_ltm,ni_ltm,debt_last,cash_last,ebitda_margin_ltm,net_margin_ltm,net_debt,nd_ebitda,rev_growth_yoy_%,ebitda_growth_yoy_%,n_matched
+ISS_01,VF_A01,Andes Consumer,Consumer Staples,8558.8,2760.9,1644.6,1543.9,784.8,0.3226,0.1922,759.1,0.2749,8.9918,11.385,4
+ISS_02,VF_A02,Pacifica Digital,Technology,12382.7,3477.2,1893.6,1712.8,906.3,0.2808,0.1529,806.5,0.2319,6.7391,8.792,3
+ISS_03,VF_A03,Cordillera Energy,Energy,13470.7,1562.1,799.1,469.9,450.7,0.116,0.0593,19.2,0.0123,9.071,-3.4071,4
+ISS_04,VF_A04,Lima Financial,Financials,17992.2,5636.1,3156.6,2495.0,834.1,0.3133,0.1754,1660.9,0.2947,7.7719,4.6513,4
+ISS_05,VF_A05,Aurora Health,Health Care,8524.4,2300.2,1324.2,1919.7,1212.7,0.2698,0.1553,707.0,0.3074,8.475,7.2804,4
+ISS_06,VF_A06,Norte Industrials,Industrials,12000.1,1834.0,954.1,1893.8,652.9,0.1528,0.0795,1240.9,0.6766,17.9186,7.264,4
+ISS_07,VF_A07,Sierra Materials,Materials,21156.4,4351.7,2641.2,901.7,363.1,0.2057,0.1248,538.6,0.1238,3.9238,4.7946,4
+ISS_08,VF_A08,Atlas Utilities,Utilities,8434.2,1093.4,665.1,818.9,1080.0,0.1296,0.0789,-261.1,-0.2388,6.8919,30.0738,4
