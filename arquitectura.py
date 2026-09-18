@@ -13,7 +13,7 @@ STAGES = [
         "id": "rstudio",
         "name": "Limpieza y procesamiento",
         "tools": "R / RStudio\nUso principal: vistazo rápido\ninicial",
-        "machine": "Máquina A · PC de un compañero",
+        "machine": "",
         "status": "Fuera del repositorio",
         "versioned": False,
         "x": 0.75,
@@ -25,7 +25,7 @@ STAGES = [
         "id": "analysis",
         "name": "Transformación y análisis",
         "tools": "Visual Studio Code + GitHub Copilot\nPython: pandas y numpy",
-        "machine": "Máquina B · PC de otro compañero",
+        "machine": "",
         "status": "Versionado en el repositorio",
         "versioned": True,
         "x": 5.10,
@@ -37,7 +37,7 @@ STAGES = [
         "id": "reporting",
         "name": "Visualización y reporte",
         "tools": "Python: pandas, matplotlib y rich",
-        "machine": "Esta máquina",
+        "machine": "",
         "status": "Versionado en el repositorio",
         "versioned": True,
         "x": 9.45,
@@ -62,13 +62,6 @@ REPOSITORY = {
     "width": 1.75,
     "height": 2.10,
 }
-
-LANES = [
-    (0.45, 4.05, "MÁQUINA A", "PC de un compañero"),
-    (4.05, 8.95, "MÁQUINA B", "PC de otro compañero"),
-    (8.95, 12.95, "ESTA MÁQUINA", "Visualización y reporte"),
-]
-
 
 def add_box(ax, x, y, width, height, label, *, fill, edge, dashed=False, text_color=TEXT,
             font_size=10, line_width=2.0):
@@ -110,7 +103,7 @@ def draw_stage(ax, stage):
         fill, edge, text_color, dashed = WHITE, NAVY, NAVY, True
     label = (
         f"{stage['name']}\n\n{stage['tools']}\n\n"
-        f"{stage['machine']}\nEstado: {stage['status']}"
+        f"Estado: {stage['status']}"
     )
     add_box(
         ax, stage["x"], stage["y"], stage["width"], stage["height"], label,
@@ -129,15 +122,8 @@ def render(output_path):
     ax.text(0.55, 8.32, "Arquitectura del flujo de datos", color=NAVY,
             fontsize=25, fontweight="bold", ha="left", va="center")
 
-    for left, right, title, subtitle in LANES:
-        ax.text((left + right) / 2, 7.55, title, color=NAVY, fontsize=11,
-                fontweight="bold", ha="center", va="center")
-        ax.text((left + right) / 2, 7.20, subtitle, color=TEXT_MUTED, fontsize=8.5,
-                ha="center", va="center")
-        ax.plot([left, right], [6.85, 6.85], color=GRID, linewidth=1.5, zorder=1)
-
     for x in (4.05, 8.95, 12.95):
-        ax.plot([x, x], [1.25, 7.80], color=GRID, linewidth=1.5, zorder=1)
+        ax.plot([x, x], [1.25, 7.15], color=GRID, linewidth=1.5, zorder=1)
 
     for stage in STAGES:
         draw_stage(ax, stage)

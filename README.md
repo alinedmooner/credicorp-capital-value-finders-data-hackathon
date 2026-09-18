@@ -4,17 +4,17 @@
 
 ```mermaid
 flowchart LR
-    subgraph MA["Máquina A · PC de un compañero"]
+    subgraph MA["Etapa inicial"]
         A["Limpieza y procesamiento<br/>R / RStudio<br/>Uso principal: vistazo rápido inicial<br/>Estado: Fuera del repositorio"]
     end
 
     H["Artefacto de entrega<br/>serialized/<br/>7 archivos CSV limpios"]
 
-    subgraph MB["Máquina B · PC de otro compañero"]
+    subgraph MB["Etapa de análisis"]
         B["Transformación y análisis<br/>Visual Studio Code + GitHub Copilot<br/>Python: pandas y numpy<br/>Estado: Versionado en el repositorio"]
     end
 
-    subgraph MC["Esta máquina"]
+    subgraph MC["Etapa de reporte"]
         C["Visualización y reporte<br/>Python: pandas, matplotlib y rich<br/>Estado: Versionado en el repositorio"]
     end
 

@@ -1,66 +1,75 @@
-"""Cumulative performance with linear trend lines and variance visualization."""
-import pandas as pd
-import numpy as np
+"""Render cumulative performance and rolling-volatility presentation chart."""
+
+from pathlib import Path
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from pathlib import Path
+import numpy as np
+
 import clean
+from chart_style import NAVY, SERIES, TEXT_MUTED, add_note, configure, style_axis
+
 
 OUT = Path(__file__).resolve().parent
 FIG = OUT / "figures"
+PRESENTATION = OUT.parent / "outputs"
 
-px = clean.load_prices_daily()
-wide = px.pivot_table(index="date", columns="asset_id", values="close")
-cum = wide / wide.iloc[0]
-rets = wide.pct_change()
 
-x = np.arange(len(cum))  # trading-day index for regression
+def render():
+    configure()
+    prices = clean.load_prices_daily()
+    wide = prices.pivot_table(index="date", columns="asset_id", values="close")
+    cumulative = wide / wide.iloc[0] * 100
+    returns = wide.pct_change()
+    x = np.arange(len(cumulative))
 
-fig, (ax, axv) = plt.subplots(
-    2, 1, figsize=(13, 8.5), sharex=True,
-    gridspec_kw={"height_ratios": [3, 1.2], "hspace": 0.08})
+    fig, (ax_return, ax_volatility) = plt.subplots(
+        2, 1, figsize=(16, 9), dpi=200, sharex=True,
+        gridspec_kw={"height_ratios": [3.1, 1.35], "hspace": 0.12},
+    )
+    fig.subplots_adjust(left=0.08, right=0.88, top=0.90, bottom=0.10)
+    fig.suptitle("Rendimiento acumulado y volatilidad móvil", x=0.08, ha="left",
+                 color=NAVY, fontsize=22, fontweight="bold")
 
-colors = plt.cm.tab10.colors
-for i, c in enumerate(cum.columns):
-    y = cum[c].values
-    # linear trend on rebased cumulative
-    slope, intercept = np.polyfit(x, y, 1)
-    trend = slope * x + intercept
-    ann_vol = rets[c].std() * np.sqrt(252) * 100
-    slope_bp_day = slope * 100  # rebased units per day -> %
-    ax.plot(cum.index, y, lw=1.1, color=colors[i], alpha=0.85,
-            label=f"{c}  σ={ann_vol:.0f}%  trend={slope_bp_day:+.2f}%/d")
-    ax.plot(cum.index, trend, lw=1.6, ls="--", color=colors[i], alpha=0.9)
-    # end-of-line trend annotation
-    ax.annotate(f"{trend[-1]:.2f}", (cum.index[-1], trend[-1]),
-                textcoords="offset points", xytext=(5, 0), fontsize=7,
-                color=colors[i])
-    # rolling 21d annualized volatility (variance behavior)
-    roll_vol = rets[c].rolling(21).std() * np.sqrt(252) * 100
-    axv.plot(cum.index, roll_vol, lw=1.0, color=colors[i], alpha=0.85)
+    for index, asset in enumerate(cumulative.columns):
+        color = SERIES[index]
+        values = cumulative[asset].values
+        slope, intercept = np.polyfit(x, values, 1)
+        trend = slope * x + intercept
+        annual_volatility = returns[asset].std() * np.sqrt(252) * 100
+        ax_return.plot(cumulative.index, values, color=color, lw=1.8, label=asset, zorder=3)
+        ax_return.plot(cumulative.index, trend, color=color, lw=1.2, ls=(0, (4, 3)), alpha=0.72)
+        ax_return.annotate(
+            f"{asset}  {values[-1] - 100:+.0f}%",
+            (cumulative.index[-1], values[-1]), xytext=(7, 0),
+            textcoords="offset points", color=color, fontsize=8, va="center",
+            clip_on=False,
+        )
+        rolling_volatility = returns[asset].rolling(21).std() * np.sqrt(252) * 100
+        ax_volatility.plot(rolling_volatility.index, rolling_volatility, color=color,
+                           lw=1.55, label=f"{asset} · {annual_volatility:.0f}%")
 
-ax.axhline(1.0, color="k", lw=0.6, alpha=0.5)
-ax.set_title("Cumulative performance (rebased) with linear trend (dashed) — "
-             "legend shows annualized volatility σ and trend slope")
-ax.legend(ncol=2, fontsize=8, loc="upper left")
-ax.grid(alpha=0.3)
-ax.margins(x=0.03)
+    ax_return.axhline(100, color=TEXT_MUTED, lw=1, ls=(0, (2, 3)), zorder=1)
+    ax_return.set_ylabel("Índice base 100")
+    ax_return.set_title("Precio de cierre acumulado · línea discontinua: tendencia lineal",
+                        loc="left", fontsize=12, pad=10)
+    style_axis(ax_return)
+    ax_return.legend(ncol=4, loc="upper left", fontsize=9, title="Acciones")
 
-axv.set_ylabel("Roll. 21d vol (%)", fontsize=8)
-axv.set_xlabel("Date")
-axv.grid(alpha=0.3)
-axv.set_title("Variance behavior: 21-day rolling annualized volatility", fontsize=9)
+    ax_volatility.set_ylabel("Volatilidad anualizada (%)")
+    ax_volatility.set_title("Volatilidad móvil de 21 ruedas", loc="left", fontsize=12, pad=10)
+    ax_volatility.legend(ncol=4, loc="upper left", fontsize=8,
+                          title="Volatilidad del período")
+    style_axis(ax_volatility)
 
-fig.tight_layout()
-out = FIG / "09_cumulative_trend_variance.png"
-fig.savefig(out, dpi=110, bbox_inches="tight")
-plt.close(fig)
-print(f"Saved -> {out}")
+    add_note(fig, "Fuente: precios diarios limpios. Las etiquetas finales muestran el rendimiento acumulado.")
+    for path in (FIG / "09_cumulative_trend_variance.png", PRESENTATION / "rendimiento_volatilidad.png"):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(path, dpi=200)
+    plt.close(fig)
+    print("Gráficas guardadas: 09_cumulative_trend_variance.png y rendimiento_volatilidad.png")
 
-# print trend + variance summary table
-print("\nasset  ann_vol_%  trend_%/day  trend_total_(end value)")
-for i, c in enumerate(cum.columns):
-    y = cum[c].values
-    slope, intercept = np.polyfit(x, y, 1)
-    print(f"{c}  {rets[c].std()*np.sqrt(252)*100:6.1f}  {slope*100:+8.3f}  {(slope*x[-1]+intercept):8.2f}")
+
+if __name__ == "__main__":
+    render()
